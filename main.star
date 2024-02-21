@@ -1,6 +1,6 @@
 constants = import_module("/constants/constants.star")
 database = import_module("/database/database.star")
-django_backend = import_module("/backend/backend.star")
+django_app = import_module("/app/app.star")
 
 
 def run(
@@ -26,4 +26,4 @@ def run(
     )
 
     # run the application's backend service
-    django_backend.run(plan, postgres_db, postgres_password)
+    django_app.run(plan, postgres_db, postgres_password)
