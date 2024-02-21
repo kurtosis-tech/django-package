@@ -4,6 +4,10 @@ constants = import_module("/constants/constants.star")
 def run(plan, postgres_db, postgress_password):
     postgres_port = "{}".format(postgres_db.service.ports["postgresql"].number)
 
+    container_cmd = "./db-script.sh && python3 manage.py runserver 0.0.0.0:{}".format(
+        constants.BACKEND_SERVICE_HTTP_PORT
+    )
+
     service_config_build = ServiceConfig(
         image=ImageBuildSpec(
             image_name=constants.BACKEND_SERVICE_IMAGE_NAME,
@@ -23,6 +27,8 @@ def run(plan, postgres_db, postgress_password):
                 application_protocol="http",
             ),
         },
+        entrypoint=["sh", "-c"],
+        cmd=[container_cmd],
     )
 
     backend_service = plan.add_service(
