@@ -6,7 +6,7 @@ django_backend = import_module("/backend/backend.star")
 def run(
     plan,
     postgres_user=constants.DEFAULT_POSTGRES_USER,
-    postgress_password=constants.DEFAULT_POSTGRES_PASSWORD,
+    postgres_password=constants.DEFAULT_POSTGRES_PASSWORD,
     postgres_db_name=constants.DEFAULT_POSTGRES_DB_NAME,
     postgres_service_name=constants.DEFAULT_POSTGRES_SERVICE_NAME,
 ):
@@ -16,14 +16,14 @@ def run(
     Args:
         postgres_user (string): the Postgres's user name (default: postgres)
         postgres_password (string): the Postgres's password (default: secretdatabasepassword)
-        postgres_db (string): the Postgres's db name (default: django-db)
+        postgres_db_name (string): the Postgres's db name (default: django-db)
         postgres_service_name: the Postgres's service name (default: postgres)
     """
 
     # run the application's database
     postgres_db = database.run(
-        plan, postgres_user, postgress_password, postgres_db_name, postgres_service_name
+        plan, postgres_user, postgres_password, postgres_db_name, postgres_service_name
     )
 
     # run the application's backend service
-    django_backend.run(plan, postgres_db, postgress_password)
+    django_backend.run(plan, postgres_db, postgres_password)
