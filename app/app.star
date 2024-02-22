@@ -1,17 +1,16 @@
-constants = import_module("/constants/constants.star")
-
+BACKEND_SERVICE_HTTP_PORT = 8000
 
 def run(plan, postgres_db, postgress_password):
     postgres_port = "{}".format(postgres_db.service.ports["postgresql"].number)
 
     container_cmd = "./db-script.sh && python3 manage.py runserver 0.0.0.0:{}".format(
-        constants.BACKEND_SERVICE_HTTP_PORT
+        BACKEND_SERVICE_HTTP_PORT
     )
 
     service_config_build = ServiceConfig(
         image=ImageBuildSpec(
-            image_name=constants.BACKEND_SERVICE_IMAGE_NAME,
-            build_context_dir=constants.BACKEND_SERVICE_IMAGE_CONTEXT,
+            image_name="kurtosistech/django-package",
+            build_context_dir="/app/files/mysite",
         ),
         env_vars={
             "POSTGRES_DATABASE": postgres_db.database,
@@ -22,7 +21,7 @@ def run(plan, postgres_db, postgress_password):
         },
         ports={
             "http": PortSpec(
-                number=constants.BACKEND_SERVICE_HTTP_PORT,
+                number=BACKEND_SERVICE_HTTP_PORT,
                 transport_protocol="TCP",
                 application_protocol="http",
             ),
@@ -32,7 +31,7 @@ def run(plan, postgres_db, postgress_password):
     )
 
     backend_service = plan.add_service(
-        name=constants.BACKEND_SERVICE_NAME,
+        name="django-app",
         config=service_config_build,
     )
 

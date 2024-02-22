@@ -1,14 +1,17 @@
-constants = import_module("/constants/constants.star")
-database = import_module("/database/database.star")
 django_app = import_module("/app/app.star")
 
+# Postgres defaults
+DEFAULT_POSTGRES_USER = "postgres"
+DEFAULT_POSTGRES_PASSWORD = "secretdatabasepassword"
+DEFAULT_POSTGRES_DB_NAME = "django-db"
+DEFAULT_POSTGRES_SERVICE_NAME = "postgres"
 
 def run(
     plan,
-    postgres_user=constants.DEFAULT_POSTGRES_USER,
-    postgres_password=constants.DEFAULT_POSTGRES_PASSWORD,
-    postgres_db_name=constants.DEFAULT_POSTGRES_DB_NAME,
-    postgres_service_name=constants.DEFAULT_POSTGRES_SERVICE_NAME,
+    postgres_user=DEFAULT_POSTGRES_USER,
+    postgres_password=DEFAULT_POSTGRES_PASSWORD,
+    postgres_db_name=DEFAULT_POSTGRES_DB_NAME,
+    postgres_service_name=DEFAULT_POSTGRES_SERVICE_NAME,
 ):
     """
     Starts this Django example application.
@@ -20,9 +23,13 @@ def run(
         postgres_service_name: the Postgres's service name (default: postgres)
     """
 
-    # run the application's database
-    postgres_db = database.run(
-        plan, postgres_user, postgres_password, postgres_db_name, postgres_service_name
+    # run the application's db
+    postgres_db = postgres.run(
+        plan,
+        service_name=postgres_service_name,
+        user=postgres_user,
+        password=postgress_password,
+        database=postgres_db_name,
     )
 
     # run the application's backend service
