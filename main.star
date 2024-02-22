@@ -1,3 +1,4 @@
+postgres = import_module("github.com/kurtosis-tech/postgres-package/main.star")
 django_app = import_module("/app/app.star")
 
 # Postgres defaults
@@ -28,7 +29,7 @@ def run(
         plan,
         service_name=postgres_service_name,
         user=postgres_user,
-        password=postgress_password,
+        password=postgres_password,
         database=postgres_db_name,
     )
 
