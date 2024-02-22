@@ -1,23 +1,37 @@
-# NOTE: If you're a VSCode user, you might like our VSCode extension: https://marketplace.visualstudio.com/items?itemName=Kurtosis.kurtosis-extension
-
-# Importing the Postgres package from the web using absolute import syntax
-# See also: https://docs.kurtosis.com/starlark-reference/import-module
 postgres = import_module("github.com/kurtosis-tech/postgres-package/main.star")
+django_app = import_module("/app/app.star")
 
-# Importing a file inside this package using relative import syntax
-# See also: https://docs.kurtosis.com/starlark-reference/import-module
-lib = import_module("./lib/lib.star")
+# Postgres defaults
+DEFAULT_POSTGRES_USER = "postgres"
+DEFAULT_POSTGRES_PASSWORD = "secretdatabasepassword"
+DEFAULT_POSTGRES_DB_NAME = "django-db"
+DEFAULT_POSTGRES_SERVICE_NAME = "postgres"
 
-# For more information on...
-#  - the 'run' function:  https://docs.kurtosis.com/concepts-reference/packages#runnable-packages
-#  - the 'plan' object:   https://docs.kurtosis.com/starlark-reference/plan
-#  - arguments:           https://docs.kurtosis.com/run#arguments
-def run(plan, name = "John Snow"):
-    plan.print("Hello, " + name)
+def run(
+    plan,
+    postgres_user=DEFAULT_POSTGRES_USER,
+    postgres_password=DEFAULT_POSTGRES_PASSWORD,
+    postgres_db_name=DEFAULT_POSTGRES_DB_NAME,
+    postgres_service_name=DEFAULT_POSTGRES_SERVICE_NAME,
+):
+    """
+    Starts this Django example application.
 
-    # https://docs.kurtosis.com/starlark-reference/plan#upload_files
-    config_json = plan.upload_files("./static-files/config.json")
+    Args:
+        postgres_user (string): the Postgres's user name (default: postgres)
+        postgres_password (string): the Postgres's password (default: secretdatabasepassword)
+        postgres_db_name (string): the Postgres's db name (default: django-db)
+        postgres_service_name: the Postgres's service name (default: postgres)
+    """
 
-    lib.run_hello(plan, config_json)
+    # run the application's db
+    postgres_db = postgres.run(
+        plan,
+        service_name=postgres_service_name,
+        user=postgres_user,
+        password=postgres_password,
+        database=postgres_db_name,
+    )
 
-    postgres.run(plan)
+    # run the application's backend service
+    django_app.run(plan, postgres_db, postgres_password)
