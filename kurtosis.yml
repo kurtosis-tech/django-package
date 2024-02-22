@@ -1,3 +1,3 @@
-name: "https://github.com/kurtosis-tech/django-package"
+name: "github.com/kurtosis-tech/django-package"
 description: |
   This is a Kurtosis Django template package you can use to create your own Django application.
