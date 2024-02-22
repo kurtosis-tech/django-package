@@ -21,7 +21,7 @@ def run(
         postgres_user (string): the Postgres's user name (default: postgres)
         postgres_password (string): the Postgres's password (default: secretdatabasepassword)
         postgres_db_name (string): the Postgres's db name (default: django-db)
-        postgres_service_name: the Postgres's service name (default: postgres)
+        postgres_service_name (string): the Postgres's service name (default: postgres)
     """
 
     # run the application's db
