@@ -19,6 +19,13 @@ Login into the [Kurtosis cloud](https://cloud.kurtosis.com/)
 #### Step 3
 
 Find the package in the catalog and press the `run` button
+<br />
+<img alt="Kurtosis Django package in the catalog" src="./readme-files/django-in-catalog.png" />
+<br />
+<br />
+
+This screen record shows the entire run workflow:
+<img alt="run Kurtosis Django package in Kurtosis cloud" src="./readme-files/django-package-run.gif" />
 
 ### Using the Kurtosis CLI
 
