@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-rw&hze^c#g8%f!bbplm7!%(^yryd9m&rjbho(31%rpgi#^9y1*
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ['http://*.on-acorn.io','https://*.on-acorn.io']
+CSRF_TRUSTED_ORIGINS = ['http://*.kurtosis.com','https://*.kurtosis.com']
 
 # Application definition
 
