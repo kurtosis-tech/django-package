@@ -11,6 +11,7 @@ services:
       - POSTGRES_PASSWORD=secretdatabasepassword
 
   django-app:
+    image: kurtosistech/django-package
     build:
       context: ./app/files/mysite
     ports:
@@ -22,4 +23,3 @@ services:
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
     command: ["sh", "-c", "./db-script.sh && python3 manage.py runserver 0.0.0.0:8080"]
-
